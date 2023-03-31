@@ -6,7 +6,8 @@
   },
   "dependencies": {
     "send": "^0.16.2",
-    "tar": "4.4.19"
+    "tar": "4.4.19",
+    "serve": "6.4.9"
   },
   "devDependencies": {
     "debug": "^4.1.1"
