@@ -18,11 +18,14 @@ jobs:
         env:
           JF_URL: ${{ env.REGISTRY }}
           JF_ACCESS_TOKEN: ${{ env.JTOKEN }}
-      - name: Run JFrog CLI
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+      - name: Run JFrog audit
         run: |
           # Collect environment variables for the build
-          jf rt bce
+          # jf rt bce
           # Collect VCS details from git and add them to the build
-          jf rt bag
+          # jf rt bag
           # Publish build info
-          jf rt bp
+          # jf rt bp
+          jf audit . --fail=true
