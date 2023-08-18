@@ -1,16 +1,23 @@
 name: "JFrog CLI Example"
-on: push
+on:
+  [push]
 
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: "https://psemea.jfrog.io"
+  JTOKEN: "cmVmdGtuOjAxOjE3MjM5MTUyNjQ6TVBHNU1HbmFzOWd2STQ5MVJkMFdDU3VtTUY5"
+  # github.repository as <account>/<repo>
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v2
+        uses: jfrog/setup-jfrog-cli@v3
         env:
-          JF_ENV_1: ${{ secrets.JF_SECRET_ENV_1 }}
+          JF_URL: ${{ env.REGISTRY }}
+          JF_ACCESS_TOKEN: ${{ env.JTOKEN }}
       - name: Run JFrog CLI
         run: |
           # Collect environment variables for the build
