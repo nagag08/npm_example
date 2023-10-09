@@ -5,7 +5,7 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: "https://psemea.jfrog.io"
-  JTOKEN: "cmVmdGtuOjAxOjE3MjM5MTUyNjQ6TVBHNU1HbmFzOWd2STQ5MVJkMFdDU3VtTUY5"
+  JTOKEN: "cmVmdGtuOjAxOjE3MjgzODk5MzY6bW54YVp6TVBhck04ZUZGb1B1SWljOE5sQzZI"
   # github.repository as <account>/<repo>
 jobs:
   npmbuild:
