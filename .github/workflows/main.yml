@@ -8,7 +8,7 @@ env:
   JTOKEN: "cmVmdGtuOjAxOjE3MjM5MTUyNjQ6TVBHNU1HbmFzOWd2STQ5MVJkMFdDU3VtTUY5"
   # github.repository as <account>/<repo>
 jobs:
-  build:
+  npmbuild:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,17 +22,14 @@ jobs:
         uses: actions/setup-node@v3
       - name: Run JFrog audit
         run: |
-          jf npm-config --repo-resolve npm-virt --repo-deploy npm-virt
-          jf npm install --build-name npm-build --build-number 40 --project ad
-          jf rt bce npm-build 40 --project ad
-          jf rt bag npm-build 40 --project ad
-          jf npm publish --build-name npm-build --build-number 40 --project ad
-          jf rt bp npm-build 40 --project ad
-          # Collect environment variables for the build
-          # jf rt bce
-          # Collect VCS details from git and add them to the build
-          # jf rt bag
-          # Publish build info
-          # jf rt bp
+          jf npm-config --repo-resolve sr-npm-dev --repo-deploy sr-npm-dev
+          jf npm install --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
           # jf audit . --fail=true
+          # Collect environment variables for the build
+          jf rt bce $GITHUB_JOB $GITHUB_RUN_ID --project sr
+          # Collect VCS details from git and add them to the build
+          jf rt bag $GITHUB_JOB $GITHUB_RUN_ID --project sr
+          # Publish build info
+          jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
+          jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad
           echo $?
