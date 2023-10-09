@@ -30,6 +30,6 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt bag $GITHUB_JOB $GITHUB_RUN_ID --project sr
           # Publish build info
-          jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
+          JFROG_CLI_LOG_LEVEL=DEBUG jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
           jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad
           echo $?
