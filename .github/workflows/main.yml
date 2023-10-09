@@ -42,6 +42,6 @@ jobs:
           JFROG_CLI_LOG_LEVEL=DEBUG jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
       - name: Run JFrog npm build publish
         run: |
-          echo "jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad"
-          jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad
+          echo "jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project sr"
+          jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project sr
           echo $?
