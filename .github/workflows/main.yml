@@ -20,16 +20,28 @@ jobs:
           JF_ACCESS_TOKEN: ${{ env.JTOKEN }}
       - name: Setup NodeJS
         uses: actions/setup-node@v3
-      - name: Run JFrog audit
+      - name: JF NPM Config
         run: |
+          echo "jf npm-config --repo-resolve sr-npm-dev --repo-deploy sr-npm-dev"
           jf npm-config --repo-resolve sr-npm-dev --repo-deploy sr-npm-dev
+      - name: Run NPM Install
+        run: |
+          echo "jf npm install --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr"
           jf npm install --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
+      - name: Run JFrog Build commands
+        run: |
           # jf audit . --fail=true
           # Collect environment variables for the build
           jf rt bce $GITHUB_JOB $GITHUB_RUN_ID --project sr
           # Collect VCS details from git and add them to the build
           jf rt bag $GITHUB_JOB $GITHUB_RUN_ID --project sr
+      - name: Run JFrog npm publish
+        run: |
           # Publish build info
+          echo "JFROG_CLI_LOG_LEVEL=DEBUG jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr"
           JFROG_CLI_LOG_LEVEL=DEBUG jf npm publish --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
+      - name: Run JFrog npm build publish
+        run: |
+          echo "jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad"
           jf rt bp $GITHUB_JOB $GITHUB_RUN_ID --project ad
           echo $?
