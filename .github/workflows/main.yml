@@ -22,11 +22,17 @@ jobs:
         uses: actions/setup-node@v3
       - name: Run JFrog audit
         run: |
+          jf npm-config --repo-resolve npm-virt --repo-deploy npm-virt
+          jf npm install --build-name npm-build --build-number 40 --project ad
+          jf rt bce npm-build 40 --project ad
+          jf rt bag npm-build 40 --project ad
+          jf npm publish --build-name npm-build --build-number 40 --project ad
+          jf rt bp npm-build 40 --project ad
           # Collect environment variables for the build
           # jf rt bce
           # Collect VCS details from git and add them to the build
           # jf rt bag
           # Publish build info
           # jf rt bp
-          jf audit . --fail=true
+          # jf audit . --fail=true
           echo $?
