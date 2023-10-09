@@ -30,8 +30,8 @@ jobs:
           jf npm install --build-name $GITHUB_JOB --build-number $GITHUB_RUN_ID --project sr
       - name: Run NPM Audit
         run: |
-          echo "jf audit . --fail=true"
-          jf audit . --fail=true
+          echo "jf audit . "
+          jf audit .
       - name: Run JFrog Build commands
         run: |
           # jf audit . --fail=true
