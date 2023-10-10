@@ -1,4 +1,4 @@
-name: "JFrog CLI Example"
+name: "JFrog NPM Workflow"
 on:
   [push]
 
